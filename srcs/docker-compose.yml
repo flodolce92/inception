@@ -1,0 +1,41 @@
+services:
+  mariadb:
+    container_name: mariadb
+    image: mariadb:inception
+    build:
+      context: ./requirements/mariadb
+    env_file:
+      - .env
+    volumes:
+      - db-volume:/var/lib/mysql
+    networks:
+      - db-network
+    restart: on-failure
+    healthcheck:
+      test:
+        [
+          'CMD',
+          'mysqladmin',
+          'ping',
+          '-h',
+          'localhost',
+          '-u',
+          'root',
+          '-p${MYSQL_ROOT_PASSWORD}',
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+networks:
+  db-network:
+    driver: bridge
+
+volumes:
+  db-volume:
+    driver: local
+    driver_opts:
+      type: none
+      device: ${HOME}/data/mariadb
+      o: bind
