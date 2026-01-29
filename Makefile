@@ -51,8 +51,8 @@ fclean:
 				@echo "${RED}Forcing cleanup of Docker containers, images, and volumes...${RESET}"
 				@${COMPOSE} -p inception -f ${COMPOSE_FILE} down --volumes --rmi all --remove-orphans
 				@echo "${RED}Forced cleanup complete!${RESET}"
-				@rm -rf $(MAIN_DATA_DIR)wordpress
-				@rm -rf $(MAIN_DATA_DIR)mariadb
+				@sudo rm -rf $(MAIN_DATA_DIR)wordpress
+				@sudo rm -rf $(MAIN_DATA_DIR)mariadb
 				@echo "${RED}Data directories removed!${RESET}"
 				@echo "${RED}All cleanup operations completed!${RESET}"
 
