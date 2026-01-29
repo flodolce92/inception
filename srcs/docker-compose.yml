@@ -2,34 +2,47 @@ services:
   mariadb:
     container_name: mariadb
     image: mariadb:inception
-    build:
-      context: ./requirements/mariadb
-    env_file:
-      - .env
+    build: ./requirements/mariadb
+    env_file: .env
     volumes:
       - db-volume:/var/lib/mysql
     networks:
       - db-network
     restart: on-failure
-    healthcheck:
-      test:
-        [
-          'CMD',
-          'mysqladmin',
-          'ping',
-          '-h',
-          'localhost',
-          '-u',
-          'root',
-          '-p${MYSQL_ROOT_PASSWORD}',
-        ]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-      start_period: 30s
+
+  wordpress:
+    container_name: wordpress
+    image: wordpress:inception
+    build: ./requirements/wordpress
+    env_file: .env
+    volumes:
+      - wp-data:/var/www/html
+    networks:
+      - db-network
+      - proxy-network
+    depends_on:
+      - mariadb
+    restart: on-failure
+
+  nginx:
+    container_name: nginx
+    image: nginx:inception
+    build: ./requirements/nginx
+    env_file: .env
+    ports:
+      - "443:443"
+    volumes:
+      - wp-data:/var/www/html
+    networks:
+      - proxy-network
+    depends_on:
+      - wordpress
+    restart: on-failure
 
 networks:
   db-network:
+    driver: bridge
+  proxy-network:
     driver: bridge
 
 volumes:
@@ -37,5 +50,11 @@ volumes:
     driver: local
     driver_opts:
       type: none
-      device: ${HOME}/data/mariadb
+      device: /home/flo-dolc/data/mariadb
+      o: bind
+  wp-data:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/flo-dolc/data/wordpress
       o: bind
