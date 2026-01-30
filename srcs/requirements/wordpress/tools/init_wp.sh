@@ -1,5 +1,9 @@
 #!/bin/sh
 
+MYSQL_PASSWORD=$(cat /run/secrets/db_password)
+WP_ADMIN_PASSWORD=$(cat /run/secrets/wp_admin_password)
+WP_USER_PASSWORD=$(cat /run/secrets/wp_user_password)
+
 if [ ! -f /var/www/html/wp-config.php ]; then
 	echo "Downloading WordPress..."
 	wp core download --allow-root

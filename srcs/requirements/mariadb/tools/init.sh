@@ -1,5 +1,8 @@
 #!/bin/sh
 
+MYSQL_ROOT_PASSWORD=$(cat /run/secrets/db_root_password)
+MYSQL_PASSWORD=$(cat /run/secrets/db_password)
+
 # Check if the database is already initialized
 if [ ! -d "/var/lib/mysql/mysql" ]; then
 	echo "Initializing database..."
