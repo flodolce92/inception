@@ -25,11 +25,20 @@ services:
       - proxy-network
     depends_on:
       - mariadb
+      - redis
     restart: on-failure
     secrets:
       - db_password
       - wp_admin_password
       - wp_user_password
+
+  redis:
+    container_name: redis
+    image: redis:inception
+    build: ./requirements/bonus/redis
+    networks:
+      - db-network
+    restart: on-failure
 
   nginx:
     container_name: nginx

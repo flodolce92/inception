@@ -9,6 +9,11 @@ RUN apk update && apk add --no-cache \
 	php82-openssl \
 	php82-curl \
 	php82-zlib \
+	php82-redis \
+	php82-tokenizer \
+	php82-ctype \
+	php82-dom \
+	php82-xml \
 	wget \
 	mariadb-client
 

@@ -16,6 +16,8 @@ if [ ! -f /var/www/html/wp-config.php ]; then
 		--dbhost=mariadb \
 		--allow-root
 
+	# wp config set WP_DEBUG true --raw --allow-root
+
 	echo "Installing WordPress..."
 	wp core install \
 		--url=$DOMAIN_NAME \
@@ -33,6 +35,12 @@ if [ ! -f /var/www/html/wp-config.php ]; then
 		--role=author \
 		--user_pass=$WP_USER_PASSWORD \
 		--allow-root
+
+	echo "Configuring Redis Cache..."
+	wp config set WP_REDIS_HOST redis --allow-root
+	wp config set WP_REDIS_PORT 6379 --allow-root
+	wp plugin install redis-cache --activate --allow-root
+	wp redis enable --allow-root
 fi
 
 echo "Starting PHP-FPM..."
