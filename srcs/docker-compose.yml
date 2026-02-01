@@ -40,6 +40,24 @@ services:
       - db-network
     restart: on-failure
 
+  ftp:
+    container_name: ftp
+    image: ftp:inception
+    build: ./requirements/bonus/ftp
+    env_file: .env
+    ports:
+      - "21:21"
+      - "21100-21110:21100-21110"
+    volumes:
+      - wp-data:/var/www/html
+    networks:
+      - proxy-network
+    depends_on:
+      - wordpress
+    restart: on-failure
+    secrets:
+      - ftp_password
+
   nginx:
     container_name: nginx
     image: nginx:inception
@@ -84,3 +102,5 @@ secrets:
     file: ../secrets/wp_admin_password.txt
   wp_user_password:
     file: ../secrets/wp_user_password.txt
+  ftp_password:
+    file: ../secrets/ftp_password.txt

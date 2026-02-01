@@ -43,5 +43,9 @@ if [ ! -f /var/www/html/wp-config.php ]; then
 	wp redis enable --allow-root
 fi
 
+echo "Setting permissions..."
+chmod -R 775 /var/www/html
+chown -R nobody:nobody /var/www/html
+
 echo "Starting PHP-FPM..."
 exec /usr/sbin/php-fpm82 -F
