@@ -58,6 +58,18 @@ services:
     secrets:
       - ftp_password
 
+  adminer:
+    container_name: adminer
+    image: adminer:inception
+    build: ./requirements/bonus/adminer
+    ports:
+      - "8080:8080"
+    networks:
+      - db-network
+    depends_on:
+      - mariadb
+    restart: on-failure
+
   nginx:
     container_name: nginx
     image: nginx:inception
