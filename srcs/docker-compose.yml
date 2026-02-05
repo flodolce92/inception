@@ -70,6 +70,16 @@ services:
       - mariadb
     restart: on-failure
 
+  website:
+    container_name: website
+    image: website:inception
+    build: ./requirements/bonus/website
+    ports:
+      - "1337:80"
+    networks:
+      - proxy-network
+    restart: on-failure
+
   nginx:
     container_name: nginx
     image: nginx:inception
