@@ -1,18 +1,85 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inception Bonus</title>
-    <style>
-        body { background: #1a1a1a; color: #00ff00; font-family: monospace; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-        .box { border: 2px solid #00ff00; padding: 2rem; }
-    </style>
+    <title>Inception - Helldivers II Division</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="box">
-        <h1>System Status: ONLINE</h1>
-        <p>Static Website served by NGINX</p>
+    <div class="bg-grid"></div>
+    <div class="scanlines"></div>
+    <div class="stars" id="stars"></div>
+
+    <div class="container">
+        <header>
+            <div class="logo-container">
+                <div class="logo-bg"></div>
+                <h1>INCEPTION</h1>
+            </div>
+            <p class="subtitle">Helldivers II Division</p>
+        </header>
+
+        <div class="alert-banner">
+            <h2>⚠ ALLERTA PRIORITÀ MASSIMA</h2>
+            <p>Progetto Inception attivo. Tutti gli Helldivers sono chiamati a difendere la democrazia e la libertà attraverso l'infrastruttura containerizzata. Docker e Nginx schierati sul campo.</p>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">Containers Deployed</div>
+                <div class="stat-value">9</div>
+                <div class="stat-description">Sistemi containerizzati operativi e pronti al combattimento per la Super Terra</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Democracy Level</div>
+                <div class="stat-value">100%</div>
+                <div class="stat-description">Massima efficienza democratica raggiunta tramite orchestrazione automatizzata</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Nginx Uptime</div>
+                <div class="stat-value">99.9%</div>
+                <div class="stat-description">Disponibilità garantita per servire contenuti statici alla galassia</div>
+            </div>
+        </div>
+
+        <section class="mission-section">
+            <h2>Briefing Missione</h2>
+            <p>Benvenuto, Helldiver. Sei stato assegnato al Progetto Inception, un'operazione critica che richiede il deployment di infrastruttura web attraverso tecnologie containerizzate.</p>
+            <p>Il tuo obiettivo: configurare e mantenere un server Nginx all'interno di un container Docker, garantendo che i contenuti statici siano serviti con massima efficienza e affidabilità.</p>
+            <p>La Super Terra conta su di te. La democrazia deve prevalere, un container alla volta.</p>
+        </section>
+
+        <div class="terminal">
+            <div class="terminal-header">
+                <div class="terminal-dot red"></div>
+                <div class="terminal-dot yellow"></div>
+                <div class="terminal-dot green"></div>
+            </div>
+            <div class="terminal-content">
+                <div class="terminal-line"><span class="terminal-prompt">helldiver@inception:~$</span> docker ps</div>
+                <div class="terminal-line">CONTAINER ID   IMAGE          STATUS         PORTS</div>
+                <div class="terminal-line">a3f7b8c9d2e1   nginx:alpine   Up 42 minutes  0.0.0.0:443->443/tcp</div>
+                <div class="terminal-line"><span class="terminal-prompt">helldiver@inception:~$</span> <span style="animation: blink 1s infinite;">_</span></div>
+            </div>
+        </div>
+
+        <div class="cta-container">
+            <button class="cta-button" onclick="deployDemocracy()">
+                <span>DEPLOY DEMOCRACY</span>
+            </button>
+        </div>
+
+        <footer>
+            <p>Progetto 42 - Inception | Codice di condotta Helldiver applicato</p>
+            <p>Per la Super Terra, per la Libertà, per la Democrazia</p>
+            <div class="democracy-badge">Managed Liberty</div>
+        </footer>
     </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
