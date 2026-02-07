@@ -90,6 +90,17 @@ services:
       - proxy-network
     restart: on-failure
 
+  portainer:
+    container_name: portainer
+    image: portainer:inception
+    build: ./requirements/bonus/portainer
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer-data:/data
+    networks:
+      - proxy-network
+    restart: on-failure
+
   nginx:
     container_name: nginx
     image: nginx:inception
@@ -125,6 +136,7 @@ volumes:
       type: none
       device: /home/flo-dolc/data/wordpress
       o: bind
+  portainer-data:
 
 secrets:
   db_root_password:

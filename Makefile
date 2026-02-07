@@ -43,9 +43,9 @@ down:
 				@echo "${YELLOW}Docker containers stopped!${RESET}"
 
 clean:
-				@echo "${RED}Cleaning up Docker containers, images, and volumes...${RESET}"
-				@${COMPOSE} -p inception -f ${COMPOSE_FILE} down --volumes --rmi all
-				@echo "${RED}Docker containers, images, and volumes cleaned!${RESET}"
+				@echo "${RED}Cleaning up Docker containers and images...${RESET}"
+				@${COMPOSE} -p inception -f ${COMPOSE_FILE} down --rmi all --remove-orphans
+				@echo "${RED}Docker containers and images cleaned!${RESET}"
 
 fclean:
 				@echo "${RED}Forcing cleanup of Docker containers, images, and volumes...${RESET}"
