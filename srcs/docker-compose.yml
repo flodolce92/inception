@@ -23,6 +23,14 @@ services:
       retries: 5
       start_period: 30s
 
+  redis:
+    container_name: redis
+    image: redis:inception
+    build: ./requirements/bonus/redis
+    networks:
+      - db-network
+    restart: on-failure
+
   wordpress:
     container_name: wordpress
     image: wordpress:inception
@@ -44,12 +52,16 @@ services:
       - wp_admin_password
       - wp_user_password
 
-  redis:
-    container_name: redis
-    image: redis:inception
-    build: ./requirements/bonus/redis
+  adminer:
+    container_name: adminer
+    image: adminer:inception
+    build: ./requirements/bonus/adminer
     networks:
       - db-network
+      - proxy-network
+    depends_on:
+      mariadb:
+        condition: service_healthy
     restart: on-failure
 
   ftp:
@@ -69,18 +81,6 @@ services:
     restart: on-failure
     secrets:
       - ftp_password
-
-  adminer:
-    container_name: adminer
-    image: adminer:inception
-    build: ./requirements/bonus/adminer
-    networks:
-      - db-network
-      - proxy-network
-    depends_on:
-      mariadb:
-        condition: service_healthy
-    restart: on-failure
 
   website:
     container_name: website
@@ -126,6 +126,9 @@ services:
     depends_on:
       - wordpress
       - adminer
+      - website
+      - portainer
+      - uptime-kuma
     restart: on-failure
 
 networks:

@@ -1,6 +1,8 @@
 FROM alpine:3.21
 
-RUN apk update && apk add --no-cache nginx openssl
+RUN apk update && apk add --no-cache \
+	nginx \
+	openssl
 
 # Certificate creation
 RUN mkdir -p /etc/nginx/ssl
