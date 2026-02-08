@@ -26,6 +26,7 @@ RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.ph
 
 COPY ./conf/www.conf /etc/php82/php-fpm.d/www.conf
 COPY ./tools/init_wp.sh /init_wp.sh
+COPY ./content /content
 RUN chmod +x /init_wp.sh
 
 WORKDIR /var/www/html

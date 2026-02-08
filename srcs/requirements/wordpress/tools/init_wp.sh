@@ -41,6 +41,47 @@ if [ ! -f /var/www/html/wp-config.php ]; then
 	wp config set WP_REDIS_PORT 6379 --allow-root
 	wp plugin install redis-cache --activate --allow-root
 	wp redis enable --allow-root
+
+	# Customization
+	echo "Installing Blocksy theme..."
+	wp theme install blocksy --activate --allow-root
+	echo "Installing WP Dark Mode plugin..."
+	wp plugin install wp-dark-mode --activate --allow-root
+
+	# Dark mode
+	wp option update wp_dark_mode_general '{"enable_frontend":true,"enable_backend":false,"enable_os_mode":true}' --format=json --allow-root
+	wp option update wp_dark_mode_trigger '{"enable_frontend_mode_by_default":true}' --format=json --allow-root
+
+	# Remove default content
+	echo "Removing default content..."
+	wp post delete 1 --force --allow-root
+	wp post delete 2 --force --allow-root
+	wp comment delete 1 --force --allow-root
+
+	# Create mock articles
+	echo "Creating mock articles..."
+
+	# Article 1: 42 Rome
+	POST_CONTENT_1=$(cat /content/post_42_rome.html)
+	wp post create \
+		--post_type=post \
+		--post_title='42 Roma: Revolutionizing Tech Education in Italy' \
+		--post_content="$POST_CONTENT_1" \
+		--post_status=publish \
+		--post_author=1 \
+		--allow-root
+
+	# Article 2: Gamification in 42
+	POST_CONTENT_2=$(cat /content/post_gamification.html)
+	wp post create \
+		--post_type=post \
+		--post_title='Gamification at 42 School: Learning Through Play' \
+		--post_content="$POST_CONTENT_2" \
+		--post_status=publish \
+		--post_author=1 \
+		--allow-root
+
+	echo "WordPress initialization complete with 42 School content!"
 fi
 
 echo "Setting permissions..."
