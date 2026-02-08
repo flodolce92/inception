@@ -56,7 +56,9 @@ fclean:
 				@echo "${RED}Data directories removed!${RESET}"
 				@echo "${RED}All cleanup operations completed!${RESET}"
 
+re:				fclean all
+
 # =============================================================================
 # Phony Targets
 # =============================================================================
-.PHONY:				all setup images up down clean fclean
+.PHONY:				all setup images up down clean fclean re
