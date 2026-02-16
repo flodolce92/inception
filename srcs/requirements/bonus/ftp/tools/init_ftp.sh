@@ -1,5 +1,7 @@
 #!/bin/sh
 
+FTP_PASSWORD=$(cat /run/secrets/ftp_password)
+
 if ! id "$FTP_USER" >/dev/null 2>&1; then
 	echo "Creating FTP user..."
 	adduser -D -h /var/www/html $FTP_USER
